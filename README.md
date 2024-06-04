@@ -1,12 +1,12 @@
 # aleo-transaction-delegation
 
+To generate the authorization locally:
+
 Install Demox Labs Wasm SDK:
 
 ```bash
 npm install @demox-labs/aleo-sdk-staging
 ```
-
-To generate the authorization locally:
 
 In order to generate the authorization & fee_authorization objects, you can use the sdk I linked above:
 
