@@ -1,18 +1,41 @@
 # aleo-transaction-delegation
 
+Install Demox Labs Wasm SDK:
+
+```bash
+npm install @demox-labs/aleo-sdk-staging
+```
+
 To generate the authorization locally:
 
 In order to generate the authorization & fee_authorization objects, you can use the sdk I linked above:
 
 ```js
+import * as Aleo from '@demox-labs/aleo-sdk-staging';
+
+// Example values
+const privateKey = "APrivateKey1zkpB9CQGb99DPQtAXgS9pPvLzwMK2xcJmY2GeqbEjQYPyZq";
+const feeRecord = "{owner:aleo1vxmvr7qw4z3mxe6lm73dvqq0upydlxjf8uy5fyx2slc3yqa3kg8s6jrww7.private,microcredits:1000000u64.private}";
+const program = "credits.aleo";
+const functionName = "transfer_private";
+const inputs = [
+  "{owner:aleo1vxmvr7qw4z3mxe6lm73dvqq0upydlxjf8uy5fyx2slc3yqa3kg8s6jrww7.private,microcredits:12300000u64.private}",
+  "aleo1yuwhln927wr45ssezn0c2tnhlwp3g32xkmmgvqs4vs7t3rspt58qzmdcjc",
+  "50000u64"
+];
+const feeCredits = 0.5;
+
+const aleoPrivateKey = Aleo.PrivateKey.from_string(privateKey);
+const aleoRecord = feeRecord ? Aleo.RecordPlaintext.fromString(feeRecord) : undefined;
+
 const authJson = await Aleo.ProgramManager.authorize_transaction(
- aleoPrivateKey,
- program,
- functionName,
- inputs,
- feeCredits,
- aleoRecord,
- imports
+  aleoPrivateKey,
+  program,
+  functionName,
+  inputs,
+  feeCredits,
+  aleoRecord,
+  imports
 );
 const auth = JSON.parse(authJson);
 console.log(auth.authorization, auth.fee_authorization);
